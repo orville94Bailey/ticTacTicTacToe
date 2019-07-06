@@ -1,6 +1,5 @@
 let playerTurn = 0;
-let lastRow = '';
-let lastColumn = '';
+let nextMove = null;
 
 let board = Array.from(Array(9), ()=> new Array(9))
 let largeBoard = Array.from(Array(3), ()=> new Array(3));
@@ -10,6 +9,7 @@ function setup() {
 }
   
 function draw() {
+    hilightRequiredQuad()
     strokeWeight(3);
     //big
     line(0,100,300,100)
@@ -28,6 +28,18 @@ function draw() {
     drawLittleBoard(0,200)
     drawLittleBoard(100,200)
     drawLittleBoard(200,200)
+
+    for (let y=0;y<9;y++) {
+        for (let x = 0; x < 9; x++) {
+            let xLoc = (Math.floor(x/3) * 100) + (x%3 * 33) + 15
+            let yLoc = (Math.floor(y/3) * 100) + (y%3 * 33) + 15 
+            if (board[x][y] == 'x') {
+                drawX(xLoc,yLoc)
+            } else if (board[x][y] == 'o') {
+                drawCircle(xLoc,yLoc)
+            }
+        }
+    }
 }
 
 function drawLittleBoard(xOffset,yOffset) {
@@ -64,8 +76,10 @@ function mouseClicked() {
         }
         let player = playerTurn % 2 == 1 ? 'o' : 'x';
         checkForWinner(outerCoords,player)
-        playerTurn += 1;   
+        playerTurn += 1;
+        nextMove = innerCoords;
     }
+    clear()
     return false;
 }
 
@@ -79,7 +93,6 @@ function getInnerQuadrant() {
 
 function markBoard(outerCoords, innerCoords, player) {
     board[(outerCoords.x * 3) + innerCoords.x][(outerCoords.y * 3)+innerCoords.y] = player;
-    console.log(board);
 }
 
 function checkForWinner(outerCoords, player) {
@@ -102,13 +115,35 @@ function checkForWinner(outerCoords, player) {
 function isValidMove(outerCoords, innerCoords){
     console.log(largeBoard[outerCoords.x][outerCoords.y])
     console.log(board[innerCoords.x][innerCoords.y])
-
-    if (largeBoard[outerCoords.x][outerCoords.y] == undefined) {
-        if (board[(outerCoords.x * 3) + innerCoords.x][(outerCoords.y * 3)+innerCoords.y] == undefined) {
-            return true;
+    
+    if (isValidQuadrant(outerCoords)) {
+        if (largeBoard[outerCoords.x][outerCoords.y] == undefined) {
+            if (board[(outerCoords.x * 3) + innerCoords.x][(outerCoords.y * 3)+innerCoords.y] == undefined) {
+                return true;
+            }
         }
     }
     return false;
+}
+
+function isValidQuadrant(outerCoords) {
+    if (nextMove == null) {return true}
+    if (largeBoard[nextMove.x][nextMove.y] != undefined) {
+        return true;
+    } else if ((outerCoords.x == nextMove.x)  && (outerCoords.y == nextMove.y)) {
+        return true;
+    }
+    return false;
+}
+
+function hilightRequiredQuad() {
+    if (nextMove == null) {return;}
+    if (largeBoard[nextMove.x][nextMove.y] != undefined) { return;}
+    stroke('green')
+    strokeWeight(6);
+    console.log(nextMove.x*100,nextMove.y*100,(nextMove.x*100)+100,(nextMove.y*100)+100)
+    rect(nextMove.x*100,nextMove.y*100,100,100)
+    stroke('black');
 }
 
 let winningValues = [
