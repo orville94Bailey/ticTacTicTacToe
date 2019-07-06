@@ -5,7 +5,7 @@ let board = Array.from(Array(9), ()=> new Array(9))
 let largeBoard = Array.from(Array(3), ()=> new Array(3));
 
 function setup() {
-    createCanvas(300, 300);
+    createCanvas(400, 400);
 }
   
 function draw() {
@@ -29,6 +29,7 @@ function draw() {
     drawLittleBoard(100,200)
     drawLittleBoard(200,200)
 
+    strokeWeight(3)
     for (let y=0;y<9;y++) {
         for (let x = 0; x < 9; x++) {
             let xLoc = (Math.floor(x/3) * 100) + (x%3 * 33) + 15
@@ -37,6 +38,16 @@ function draw() {
                 drawX(xLoc,yLoc)
             } else if (board[x][y] == 'o') {
                 drawCircle(xLoc,yLoc)
+            }
+        }
+    }
+
+    for (let y=0;y<3;y++) {
+        for (let x=0; x<3; x++) {
+            if (largeBoard[x][y] == 'x') {
+                markWin({x:x,y:y}, 'x')
+            } else if (largeBoard[x][y] == 'o') {
+                markWin({x:x,y:y}, 'o')
             }
         }
     }
@@ -102,20 +113,49 @@ function checkForWinner(outerCoords, player) {
         for (let x=(outerCoords.x*3);x<=(outerCoords.x*3)+2;x++) {
             //left to right
             if (board[x][y] == player) {
-                // console.log(x%3+y%3, '=',x%3,'+',y%3)
                 result = result | (1<<((x%3)+((y%3)*3)))
             }
         }
     }
     if (winningValues.indexOf(result) != -1) {
-        largeBoard[outerCoords.x][outerCoords.y] = player;
+        largeBoard[outerCoords.x][outerCoords.y] = player
+        markWin(outerCoords,player)
+        checkForOverallWinner(player)
     }
 }
 
-function isValidMove(outerCoords, innerCoords){
-    console.log(largeBoard[outerCoords.x][outerCoords.y])
-    console.log(board[innerCoords.x][innerCoords.y])
-    
+function markWin(outerCoords, player) {
+    let x = outerCoords.x*100;
+    x+=50;
+    let y = outerCoords.y*100;
+    y+=50;
+    if (player == 'x') {
+        strokeWeight(8)
+        line(x-50,y-50,x+50,y+50)
+        line(x-50,y+50,x+50,y-50)
+    } else {
+        ellipse(x,y,90)
+    }
+}
+
+function checkForOverallWinner(player) {
+    var result;
+    for(let y = 0; y <=2; y++) {
+        //top to bottom
+        for (let x=0;x<=2;x++) {
+            //left to right
+            if (largeBoard[x][y] == player) {
+                result = result | (1<<(x+(y*3)))
+            }
+        }
+    }
+
+    if (winningValues.indexOf(result) != -1) {
+        console.log({winner:player})
+    }
+}
+
+function isValidMove(outerCoords, innerCoords){    
     if (isValidQuadrant(outerCoords)) {
         if (largeBoard[outerCoords.x][outerCoords.y] == undefined) {
             if (board[(outerCoords.x * 3) + innerCoords.x][(outerCoords.y * 3)+innerCoords.y] == undefined) {
@@ -141,7 +181,6 @@ function hilightRequiredQuad() {
     if (largeBoard[nextMove.x][nextMove.y] != undefined) { return;}
     stroke('green')
     strokeWeight(6);
-    console.log(nextMove.x*100,nextMove.y*100,(nextMove.x*100)+100,(nextMove.y*100)+100)
     rect(nextMove.x*100,nextMove.y*100,100,100)
     stroke('black');
 }
