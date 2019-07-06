@@ -65,6 +65,8 @@
 "                    }\n"+
 "                }\n"+
 "            }\n"+
+"        } else {\n"+
+"            drawWinner(winner.player);\n"+
 "        }\n"+
 "    }\n"+
 "\n"+
