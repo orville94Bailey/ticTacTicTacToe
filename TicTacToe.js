@@ -1,4 +1,7 @@
 let playerTurn = 0;
+let lastRow = '';
+let lastColumn = '';
+
 function setup() {
     createCanvas(300, 300);
 }
@@ -44,11 +47,24 @@ function drawX(x,y) {
 }
 
 function mouseClicked() {
+    let outerCoords = getQuadrant()
+    let innerCoords = getInnerQuadrant()
+    let x = (outerCoords.x * 100) + (innerCoords.x * 33) + 15
+    let y = (outerCoords.y * 100) + (innerCoords.y * 33) + 15
+    console.log(x,'   ',y)
     if (playerTurn % 2 ===1) {
-        drawCircle(mouseX,mouseY)
+        drawCircle(x,y)
     } else {
-        drawX(mouseX,mouseY)
+        drawX(x,y)
     }
     playerTurn += 1;
     return false;
+}
+
+function getQuadrant() {
+    return {x:Math.floor(mouseX/100), y:Math.floor(mouseY/100)}
+}
+
+function getInnerQuadrant() {
+    return {x:Math.floor((mouseX%100)/33), y:Math.floor((mouseY%100)/33)}
 }
