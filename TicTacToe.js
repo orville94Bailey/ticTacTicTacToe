@@ -6,7 +6,8 @@ let largeBoard = Array.from(Array(3), () => new Array(3));
 let winner = {}
 
 function setup() {
-    createCanvas(300, 300);
+    var canvas = createCanvas(300, 300);
+    canvas.parent('ticTacToe');
 }
 
 function draw() {
