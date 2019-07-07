@@ -4,9 +4,10 @@ let nextMove = null;
 let board = Array.from(Array(9), () => new Array(9))
 let largeBoard = Array.from(Array(3), () => new Array(3));
 let winner = {}
+var canvas;
 
 function setup() {
-    var canvas = createCanvas(300, 300);
+    canvas = createCanvas(300, 300);
     canvas.parent('ticTacToe');
 }
 
@@ -217,3 +218,13 @@ let winningValues = [
     parseInt('100010001', 2),
     parseInt('001010100', 2)
 ]
+
+function windowResized() {
+    centerCanvas();
+}
+
+function centerCanvas() {
+    var x = (windowWidth - width) / 2;
+    var y = (windowHeight - height) / 2;
+    canvas.position(x, y);
+}

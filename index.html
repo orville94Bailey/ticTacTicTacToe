@@ -18,42 +18,74 @@
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Orville's Corner</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Other Places
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="https://orvillebailey.com">My Blog</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="http://timstring.orvillebailey.com">Space Engineers Tim String Builder</a>
-            </div>
-          </li>
-        </ul>
-      </div>
+        <a class="navbar-brand" href="#">Orville's Corner</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Other Places
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="https://orvillebailey.com">My Blog</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="http://timstring.orvillebailey.com">Space Engineers Tim String
+                            Builder</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <div class="container-fluid">
-        <div class="row justify-content-center my-5">
-            <div class="card" >
-                <div class="card-body" id='ticTacToe'>
+        <div class="row justify-content-center m-5">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Origins of Tic Tac Tic Tac Toe</h3>
+                        <p>Tic Tac Tic Tac Toe starting (to my knowledge) at Concord University with the Math department between 2014 and 2016. It began as a natural extension to quick tic tac toe games between classes.
+                            The added dificulty of determining your opponent's moves made the game more spectator friendly, while keeping the barrier of entry below that of Chess.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row justify-content-center">
+                    <div class="card ticTacToeCard">
+                        <div class="card-body justify-content-center" id='ticTacToe'>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
 
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Goal</h3>
+                        <p>In order to win you must take three in a row on the large board like normal tic tac toe.</p>
+                        <h3>Instructions</h3>
+                        <ul>
+                            <li>The first player to go can capture any cell</li>
+                            <li>When your opponent captues a cell in the smaller boards they are controlling where you
+                                can capture cells on the large board</li>
+                            <li>If your opponent makes you move play in a large cell that has already been captured you
+                                can move anywhere</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-  </body>
+</body>
 
 <footer>
 
